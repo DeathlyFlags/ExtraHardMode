@@ -243,7 +243,7 @@ public class Explosions extends ListenerModule
                             default:
                                 block.breakNaturally();
                         }
-                    List<Block> copy = new ArrayList<Block>(event.blockList());
+                    List<Block> copy = new ArrayList<>(event.blockList());
                     event.blockList().clear(); //we don't want this event to be recorded, but we still want the explosion particles
                     compatEvent.blockList().addAll(copy);
 
@@ -400,34 +400,25 @@ public class Explosions extends ListenerModule
      */
     public void applyExplosionPhysics(Collection<Block> blocks, final Location center, final int flyPercentage, final double upVel, final double spreadVel)
     {
-        final List<FallingBlock> fallingBlockList = new ArrayList<FallingBlock>();
-        for (Block block : blocks)
-        {
-            if (block.getType().isSolid())
-            {
-                //Only a few of the blocks fly as an effect
-                if (plugin.random(flyPercentage))
-                {
-                    FallingBlock fall = block.getLocation().getWorld().spawnFallingBlock(block.getLocation(), block.getType(), block.getData());
-                    fall.setMetadata(tag, new FixedMetadataValue(plugin, block.getLocation())); //decide on the distance if block should be placed
-                    //fall.setMetadata("drops", new FixedMetadataValue(plugin, block.getDrops()));
-                    fall.setDropItem(CFG.getBoolean(RootNode.MORE_FALLING_BLOCKS_DROP_ITEM, block.getWorld().getName()));
-                    UtilityModule.moveUp(fall, upVel);
-                    //block.setType(Material.AIR);
-                    fallingBlockList.add(fall);
-                }
-            }
-        }
+        final List<FallingBlock> fallingBlockList = new ArrayList<>();
+        //Only a few of the blocks fly as an effect
+//decide on the distance if block should be placed
+//fall.setMetadata("drops", new FixedMetadataValue(plugin, block.getDrops()));
+//block.setType(Material.AIR);
+        blocks.stream().filter(block -> block.getType().isSolid()).filter(block -> plugin.random(flyPercentage)).forEach(block -> {
+            FallingBlock fall = block.getLocation().getWorld().spawnFallingBlock(block.getLocation(), block.getType(), block.getData());
+            fall.setMetadata(tag, new FixedMetadataValue(plugin, block.getLocation())); //decide on the distance if block should be placed
+            //fall.setMetadata("drops", new FixedMetadataValue(plugin, block.getDrops()));
+            fall.setDropItem(CFG.getBoolean(RootNode.MORE_FALLING_BLOCKS_DROP_ITEM, block.getWorld().getName()));
+            UtilityModule.moveUp(fall, upVel);
+            //block.setType(Material.AIR);
+            fallingBlockList.add(fall);
+        });
 
-        plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable()
-        {
-            @Override
-            public void run()
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            for (FallingBlock fall : fallingBlockList)
             {
-                for (FallingBlock fall : fallingBlockList)
-                {
-                    UtilityModule.moveAway(fall, center, spreadVel);
-                }
+                UtilityModule.moveAway(fall, center, spreadVel);
             }
         }, 2L);
     }

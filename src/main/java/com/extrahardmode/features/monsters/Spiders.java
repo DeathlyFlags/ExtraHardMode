@@ -131,7 +131,7 @@ public class Spiders extends ListenerModule
                 locations[2] = entity.getLocation().add(-random1 / 2, 0, -random2);
                 locations[3] = entity.getLocation().add(random1 / 2, 0, -random2 / 2);
 
-                List<Block> changedBlocks = new ArrayList<Block>();
+                List<Block> changedBlocks = new ArrayList<>();
                 for (Location location : locations)
                 {
                     Block block = location.getBlock();

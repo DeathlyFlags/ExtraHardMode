@@ -37,6 +37,7 @@ import org.apache.commons.lang.Validate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Modular configuration class that utilizes a ConfigNode enumeration as easy access and storage of configuration option values.
@@ -195,9 +196,7 @@ public abstract class MultiWorldConfig extends EHMModule
      */
     public String[] getEnabledWorlds()
     {
-        ArrayList<String> worlds = new ArrayList<String>();
-        for (Map.Entry<String, Map<ConfigNode, Object>> entry : OPTIONS.rowMap().entrySet())
-            worlds.add(entry.getKey());
+        ArrayList<String> worlds = OPTIONS.rowMap().entrySet().stream().map(Map.Entry<String, Map<ConfigNode, Object>>::getKey).collect(Collectors.toCollection(ArrayList::new));
         return worlds.toArray(new String[worlds.size()]);
     }
 

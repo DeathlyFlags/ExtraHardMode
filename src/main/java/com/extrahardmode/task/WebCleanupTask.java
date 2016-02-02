@@ -38,7 +38,7 @@ public class WebCleanupTask implements Runnable
     /**
      * List of blocks to check.
      */
-    private final List<Block> webs = new ArrayList<Block>();
+    private final List<Block> webs = new ArrayList<>();
 
 
     /**
@@ -59,9 +59,9 @@ public class WebCleanupTask implements Runnable
         {
             // don't load a chunk just to clean up webs
             if (!block.getChunk().isLoaded())
-            {
+
                 continue;
-            } else if (block.getType() == Material.WEB)
+            else if (block.getType() == Material.WEB)
             {
                 // only turn webs to air. there's a chance the web may have been
                 // replaced since it was placed.

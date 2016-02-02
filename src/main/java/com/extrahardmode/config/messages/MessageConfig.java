@@ -157,9 +157,6 @@ public class MessageConfig extends ModularConfig
             memWriter.close();
 
             IoHelper.writeHeader(file, memStream);
-        } catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
         } catch (IOException e)
         {
             e.printStackTrace();

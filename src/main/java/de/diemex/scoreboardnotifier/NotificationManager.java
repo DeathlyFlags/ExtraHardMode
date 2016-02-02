@@ -38,7 +38,7 @@ public class NotificationManager implements Listener
     public NotificationManager(Plugin plugin)
     {
         this.plugin = plugin;
-        managerScoreboards = new HashMap<String, PlayerNotificationHandler>();
+        managerScoreboards = new HashMap<>();
     }
 
 
@@ -238,14 +238,7 @@ public class NotificationManager implements Listener
     private void removeNotificationLater(final int id, final PlayerNotificationHandler store, final int length)
     {
         //Remove a message after a given time
-        plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                store.removeMessage(id);
-            }
-        }, length);
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> store.removeMessage(id), length);
     }
 
 

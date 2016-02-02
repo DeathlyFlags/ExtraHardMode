@@ -49,12 +49,12 @@ public class EHMConfig
     /**
      * Nodes to load from the config
      */
-    private Set<ConfigNode> mConfigNodes = new LinkedHashSet<ConfigNode>();
+    private final Set<ConfigNode> mConfigNodes = new LinkedHashSet<>();
 
     /**
      * Loaded config values
      */
-    private Map<ConfigNode, Object> mLoadedNodes = new HashMap<ConfigNode, Object>();
+    private final Map<ConfigNode, Object> mLoadedNodes = new HashMap<>();
 
     /**
      * Location we loaded the File from
@@ -79,7 +79,7 @@ public class EHMConfig
     /**
      * Worlds in which this config is active in
      */
-    private Set<String> mWorlds = new LinkedHashSet<String>(); //Linked: keeps inserted order
+    private final Set<String> mWorlds = new LinkedHashSet<>(); //Linked: keeps inserted order
 
     /**
      * If this config is enabled for all worlds
@@ -413,9 +413,7 @@ public class EHMConfig
         mWorlds.addAll(mConfig.getStringList(mWorldsNode.getPath()));
 
         //Check for all worlds placeholder = Enables plugin for all worlds
-        for (String world : mWorlds)
-            if (world.equals(MultiWorldConfig.ALL_WORLDS))
-                mEnabledForAll = true;
+        mWorlds.stream().filter(world -> world.equals(MultiWorldConfig.ALL_WORLDS)).forEach(world -> mEnabledForAll = true);
     }
 
 
@@ -503,8 +501,7 @@ public class EHMConfig
                     {
                         List<String> list = mConfig.getStringList(node.getPath());
                         BlockRelationsList blocks = new BlockRelationsList();
-                        for (String str : list)
-                            blocks.addFromConfig(str);
+                        list.forEach(blocks::addFromConfig);
                         obj = blocks;
                     } else if (mConfig.isSet(node.getPath()))
                         obj = BlockRelationsList.EMPTY_LIST;
@@ -580,7 +577,7 @@ public class EHMConfig
                 {
                     if (value instanceof BlockTypeList)
                     {
-                        List<String> blockStrings = new ArrayList<String>();
+                        List<String> blockStrings = new ArrayList<>();
                         for (BlockType blockType : ((BlockTypeList) value).toArray())
                             blockStrings.add(blockType.saveToString());
                         outConfig.set(node.getPath(), blockStrings);
@@ -633,7 +630,7 @@ public class EHMConfig
             //Write Header to a temporary file
             memHeaderStream = new ByteArrayOutputStream();
             memWriter = new OutputStreamWriter(memHeaderStream, Charset.forName("UTF-8").newEncoder());
-            memWriter.write(String.format(mHeader.toString()));
+            memWriter.write(mHeader.toString());
             memWriter.close();
             //Copy Header to the beginning of the config file
             IoHelper.writeHeader(mConfigFile, memHeaderStream);

@@ -159,17 +159,14 @@ public class Physics extends ListenerModule
         if (entity.getType().equals(EntityType.FALLING_BLOCK) && damageAmount > 0 && EntityHelper.isMarkedForProcessing(entity))
         {
             List<Entity> entities = entity.getNearbyEntities(0, 1, 0);
-            for (Entity ent : entities)
-            {
-                if (ent instanceof LivingEntity)
-                {
-                    LivingEntity entityWithDamagedHead = (LivingEntity) ent;
-                    //Frighten the player
-                    entityWithDamagedHead.damage(damageAmount, entity);
-                    if (environmentalDmg)
-                        entityWithDamagedHead.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 140, 10));
-                }
-            }
+            //Frighten the player
+            entities.stream().filter(ent -> ent instanceof LivingEntity).forEach(ent -> {
+                LivingEntity entityWithDamagedHead = (LivingEntity) ent;
+                //Frighten the player
+                entityWithDamagedHead.damage(damageAmount, entity);
+                if (environmentalDmg)
+                    entityWithDamagedHead.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 140, 10));
+            });
         }
 
         if (event.getEntity() instanceof FallingBlock && EntityHelper.isMarkedAsOurs(event.getEntity()))

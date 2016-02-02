@@ -111,14 +111,7 @@ public class Tutorial extends ListenerModule
                     if (CFG.getBoolean(RootNode.ALWAYS_ANGRY_PIG_ZOMBIES, world.getName()))
                         messenger.send(player, MessageNode.PIGZOMBIE_TARGET);
                     if (CFG.getInt(RootNode.NETHER_PIGS_DROP_WART, world.getName()) > 0)
-                        plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                messenger.send(player, MessageNode.PIGZOMBIE_TARGET_WART);
-                            }
-                        }, 300L);
+                        plugin.getServer().getScheduler().runTaskLater(plugin, () -> messenger.send(player, MessageNode.PIGZOMBIE_TARGET_WART), 300L);
                     break;
                 }
                 case MAGMA_CUBE:
@@ -296,7 +289,7 @@ public class Tutorial extends ListenerModule
         StringBuilder items = new StringBuilder();
 
         //Merge the item amounts: 1 stone, 1 stone => 2 stones
-        List<ItemStack> lostItems = new ArrayList<ItemStack>();
+        List<ItemStack> lostItems = new ArrayList<>();
         for (int i = 0; i < event.getStacksToRemove().size(); i++)
         {
             ItemStack item = event.getStacksToRemove().get(i);

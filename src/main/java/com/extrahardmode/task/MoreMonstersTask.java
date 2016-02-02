@@ -23,8 +23,6 @@ package com.extrahardmode.task;
 
 
 import java.util.AbstractMap.SimpleEntry;
-import java.util.Collection;
-import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -128,7 +126,7 @@ public class MoreMonstersTask implements Runnable
               }
 
               if (verifiedLocation != null) {
-                  dataStore.getPreviousLocations().add(new SimpleEntry<Player, Location>(player, verifiedLocation));
+                  dataStore.getPreviousLocations().add(new SimpleEntry<>(player, verifiedLocation));
               }
           }
     }

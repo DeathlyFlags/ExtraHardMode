@@ -57,12 +57,12 @@ public class ExtraHardMode extends JavaPlugin
     /**
      * Plugin tag.
      */
-    public static final String TAG = "[EHM]";
+    public static final String TAG = "[MHC]";
 
     /**
      * Registered modules.
      */
-    private final Map<Class<? extends IModule>, IModule> modules = new LinkedHashMap<Class<? extends IModule>, IModule>();
+    private final Map<Class<? extends IModule>, IModule> modules = new LinkedHashMap<>();
 
     /**
      * for computing random chance
@@ -171,8 +171,7 @@ public class ExtraHardMode extends JavaPlugin
     {
         super.onDisable();
         //Gracefully stop all modules
-        for (IModule module : modules.values())
-            module.closing();
+        modules.values().forEach(IModule::closing);
         for (Player player : getServer().getOnlinePlayers())
             player.setWalkSpeed(0.2F);
         this.getServer().getScheduler().cancelTasks(this);

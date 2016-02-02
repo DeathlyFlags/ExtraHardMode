@@ -103,7 +103,7 @@ public class Zombies extends ListenerModule
         boolean placeSkulls = CFG.getBoolean(RootNode.ZOMBIES_REANIMATE_SKULLS, world.getName());
 
         // FEATURE: zombies may reanimate if not on fire when they die
-        if (zombiesReanimatePercent > 0 && !EntityHelper.hasFlagIgnore(entity))
+        if (zombiesReanimatePercent > 0 && EntityHelper.hasFlagIgnore(entity))
         {
             if (entity.getType() == EntityType.ZOMBIE)
             {

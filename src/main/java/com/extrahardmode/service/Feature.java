@@ -72,7 +72,7 @@ public enum Feature
      * <p/>
      * for Features with no dedicated bypass permission
      */
-    private Feature()
+    Feature()
     {
         node = PermissionNode.BYPASS;
     }
@@ -85,7 +85,7 @@ public enum Feature
      *
      * @param node which will bypass
      */
-    private Feature(PermissionNode node)
+    Feature(PermissionNode node)
     {
         this.node = node;
     }

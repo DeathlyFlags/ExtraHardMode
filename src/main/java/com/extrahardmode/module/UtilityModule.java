@@ -144,7 +144,7 @@ public class UtilityModule extends EHMModule
         Map<Character, ItemStack> ingredientMap = recipe.getIngredientMap();
 
         //Create an ArrayList with the actual recipe based of the shape and ingredientMap
-        ArrayList<ItemStack> craftRecipe = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> craftRecipe = new ArrayList<>();
         String flatShape = strArrToStr(shape);
         for (int i = 0; i < flatShape.length(); i++)
         {

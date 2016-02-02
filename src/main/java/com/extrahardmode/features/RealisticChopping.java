@@ -138,15 +138,12 @@ public class RealisticChopping extends ListenerModule
                     {
                         case AIR:
                         {
-                            List<Block> logs = new LinkedList<Block>(Arrays.asList(blockModule.getBlocksInArea(aboveLog.getLocation(), 1, 5, Material.LOG)));
+                            List<Block> logs = new LinkedList<>(Arrays.asList(blockModule.getBlocksInArea(aboveLog.getLocation(), 1, 5, Material.LOG)));
                             logs.addAll(Arrays.asList(blockModule.getBlocksInArea(aboveLog.getLocation(), 3, 5, Material.LOG_2)));
-                            for (Block log : logs)
-                            {
-                                //TODO EhmRealisticChoppingLooseLogEvent
-                                //check 2 blocks down for logs to see if it it's a stem
-                                if (log.getRelative(BlockFace.DOWN).getType() != Material.LOG && !(log.getRelative(BlockFace.DOWN, 2).getType() == Material.LOG || log.getRelative(BlockFace.DOWN, 2).getType() == Material.LOG_2))
-                                    plugin.getServer().getScheduler().runTaskLater(plugin, new FallingLogsTask(plugin, log), plugin.getRandom().nextInt(50/*so they don't fall at once*/));
-                            }
+                            //TODO EhmRealisticChoppingLooseLogEvent
+//check 2 blocks down for logs to see if it it's a stem
+/*so they don't fall at once*/
+                            logs.stream().filter(log -> log.getRelative(BlockFace.DOWN).getType() != Material.LOG && !(log.getRelative(BlockFace.DOWN, 2).getType() == Material.LOG || log.getRelative(BlockFace.DOWN, 2).getType() == Material.LOG_2)).forEach(log -> plugin.getServer().getScheduler().runTaskLater(plugin, new FallingLogsTask(plugin, log), plugin.getRandom().nextInt(50/*so they don't fall at once*/)));
                             break; //can air fall?
                         }
                         case LOG:

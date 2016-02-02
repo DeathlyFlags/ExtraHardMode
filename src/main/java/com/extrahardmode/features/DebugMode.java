@@ -33,7 +33,7 @@ public class DebugMode extends ListenerModule
         super(plugin);
         dataStoreModule = plugin.getModuleForClass(DataStoreModule.class);
         msgModule = plugin.getModuleForClass(MsgModule.class);
-        transparentBlocksIds = new HashSet<Byte>();
+        transparentBlocksIds = new HashSet<>();
         for (Material material : Material.values())
             if (material.isTransparent() && material.getId() < Byte.MAX_VALUE) //They might add more blocks currently they are at 175 of 255 available slots
                 transparentBlocksIds.add((byte) material.getId());
@@ -70,7 +70,7 @@ public class DebugMode extends ListenerModule
         Player player = event.getPlayer();
         if (isInDebugMode(player.getName()))
         {
-            Block target = player.getTargetBlock(null, 50);
+            Block target = player.getTargetBlock((HashSet<Byte>) null, 50);
             for (int line = 0; line < 6; line++)
                 msgModule.getManager().removePopup(player.getName(), key_blockdata_msg + line);
             DecimalFormat twoDecimalPlaces = new DecimalFormat("#.##");

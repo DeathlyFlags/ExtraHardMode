@@ -20,7 +20,7 @@ public class ArmorWeightTask implements Runnable
     private final ExtraHardMode mPlugin;
     private final RootConfig CFG;
     private final MsgModule mMessenger;
-    private static Set<UUID> mPlayerList = new HashSet<UUID>();
+    private static Set<UUID> mPlayerList = new HashSet<>();
 
 
     public ArmorWeightTask(ExtraHardMode plugin)

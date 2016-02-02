@@ -133,7 +133,7 @@ public class EntityHelper
     /** Check if an entity has been flagged to be ignored */
     public static boolean hasFlagIgnore(Entity entity)
     {
-        return entity != null && entity.hasMetadata(IGNORE);
+        return entity == null || !entity.hasMetadata(IGNORE);
     }
 
 
@@ -321,7 +321,8 @@ public class EntityHelper
      */
     public static EntityType shooterType(Projectile projectile) {
         ProjectileSource source = projectile.getShooter();
-        if ((source instanceof LivingEntity) == false) {
+        if (!(source instanceof LivingEntity))
+        {
             return EntityType.UNKNOWN;
         }
 

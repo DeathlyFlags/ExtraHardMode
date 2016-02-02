@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class TemporaryBlockHandler extends ListenerModule
 {
-    private Map<LiteLocation, TemporaryBlock> temporaryBlockList = new HashMap<LiteLocation, TemporaryBlock>();
+    private final Map<LiteLocation, TemporaryBlock> temporaryBlockList = new HashMap<>();
 
 
     public TemporaryBlockHandler(ExtraHardMode plugin)

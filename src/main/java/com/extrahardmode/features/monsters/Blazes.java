@@ -218,7 +218,7 @@ public class Blazes extends ListenerModule
         final boolean blazeFireOnDmg = CFG.getBoolean(RootNode.BLAZES_DROP_FIRE_ON_DAMAGE, world.getName());
 
         // FEATURE: magma cubes become blazes when they take damage
-        if (magmacubesBlazeOnDmg && entityType == EntityType.MAGMA_CUBE && !entity.isDead() && !EntityHelper.hasFlagIgnore(entity))
+        if (magmacubesBlazeOnDmg && entityType == EntityType.MAGMA_CUBE && !entity.isDead() && EntityHelper.hasFlagIgnore(entity))
         {
             //Magmacube gets replaced by blaze
             entity.remove();

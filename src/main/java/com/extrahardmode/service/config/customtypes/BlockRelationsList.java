@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class BlockRelationsList
 {
-    private Map<BlockType, BlockType> mBlockRelations = new HashMap<BlockType, BlockType>();
+    private final Map<BlockType, BlockType> mBlockRelations = new HashMap<>();
     /**
      * An empty list
      */

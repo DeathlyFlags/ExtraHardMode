@@ -60,12 +60,12 @@ public class PlayerNotificationHandler
     /**
      * All the popups currently shown
      */
-    private Map<Integer, NotificationHolder> notifications = new HashMap<Integer, NotificationHolder>();
+    private Map<Integer, NotificationHolder> notifications = new HashMap<>();
 
     /**
      * Messages Id RelationShip if available
      */
-    private Map<String, Integer> idMap = new HashMap<String, Integer>();
+    private Map<String, Integer> idMap = new HashMap<>();
 
 
     public PlayerNotificationHandler(String scoreboardTitle, Plugin plugin, String playerName)
@@ -173,8 +173,7 @@ public class PlayerNotificationHandler
         if (notifications.containsKey(id))
         {
             msgCount--;
-            for (String line : notifications.get(id).getMsg())
-                msgBoard.resetScores(line);
+            notifications.get(id).getMsg().forEach(msgBoard::resetScores);
             notifications.remove(id);
             //Update all the line numbers
             updateIndexes();
@@ -190,8 +189,7 @@ public class PlayerNotificationHandler
         int separator = 0; //pos of =
 
         //Clear scoreboard
-        for (String player : msgBoard.getEntries())
-            msgBoard.resetScores(player);
+        msgBoard.getEntries().forEach(msgBoard::resetScores);
 
         //Update the scores and put separators in between the lines
         boolean updateTitle = true;
