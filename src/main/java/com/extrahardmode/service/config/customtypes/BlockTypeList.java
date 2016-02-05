@@ -7,7 +7,7 @@ import java.util.*;
 
 public class BlockTypeList
 {
-    private Map<Integer, BlockType> blockTypeMap = new HashMap<Integer, BlockType>();
+    private final Map<Integer, BlockType> blockTypeMap = new HashMap<>();
     /**
      * Empty List with no values
      */
@@ -21,8 +21,7 @@ public class BlockTypeList
 
     public BlockTypeList(Collection<BlockType> blockTypes)
     {
-        for (BlockType blockType : blockTypes)
-            add(blockType);
+        blockTypes.forEach(this::add);
     }
 
 

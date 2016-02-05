@@ -117,7 +117,6 @@ public class Torches extends ListenerModule
             {
                 messenger.send(player, MessageNode.NO_TORCHES_HERE, PermissionNode.SILENT_NO_TORCHES_HERE, Sound.FIZZ, 20);
                 placeEvent.setCancelled(true);
-                return;
             }
         }
     }

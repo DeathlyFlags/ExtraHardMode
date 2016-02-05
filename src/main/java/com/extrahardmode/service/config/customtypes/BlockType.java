@@ -17,9 +17,9 @@ import java.util.regex.Pattern;
  */
 public final class BlockType
 {
-    private static Pattern seperators = Pattern.compile("[^A-Za-z0-9_]");
+    private static final Pattern seperators = Pattern.compile("[^A-Za-z0-9_]");
     private int blockId = -1;
-    private Set<Short> meta = new LinkedHashSet<Short>();
+    private final Set<Short> meta = new LinkedHashSet<>();
 
 
     public BlockType(int blockId)
@@ -64,7 +64,7 @@ public final class BlockType
 
     public Set<Short> getAllMeta()
     {
-        return new HashSet<Short>(meta);
+        return new HashSet<>(meta);
     }
 
 
@@ -125,7 +125,7 @@ public final class BlockType
             return null;
         //PREPARATION
         int blockId;
-        Set<Short> meta = new HashSet<Short>();
+        Set<Short> meta = new HashSet<>();
         input = RegexHelper.trimWhitespace(input);
         String[] splitted = seperators.split(input);
         if (splitted.length == 0)

@@ -144,7 +144,7 @@ public class Players extends ListenerModule
         if (!playerBypasses && enableItemLoss)
         {
             List<ItemStack> drops = event.getDrops();
-            List<ItemStack> removedDrops = new ArrayList<ItemStack>();
+            List<ItemStack> removedDrops = new ArrayList<>();
 
             int numberOfStacksToRemove = (int) (drops.size() * (deathLossPercent / 100.0f));
             loop:

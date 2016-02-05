@@ -8,5 +8,5 @@ import org.bukkit.Location;
  */
 public interface IMonsterProtection
 {
-    public boolean denySpawn(Location loc);
+    boolean denySpawn(Location loc);
 }

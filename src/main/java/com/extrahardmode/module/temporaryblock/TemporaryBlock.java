@@ -5,9 +5,9 @@ import org.bukkit.Location;
 
 public class TemporaryBlock
 {
-    Location loc;
+    final Location loc;
     boolean isBroken;
-    Object[] data;
+    final Object[] data;
 
 
     public TemporaryBlock(Location loc, Object... data)

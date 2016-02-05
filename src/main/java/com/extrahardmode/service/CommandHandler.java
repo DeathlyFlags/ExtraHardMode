@@ -40,12 +40,12 @@ public abstract class CommandHandler implements CommandExecutor
     /**
      * Registered commands for this handler.
      */
-    private final Map<String, ICommand> registeredCommands = new HashMap<String, ICommand>();
+    private final Map<String, ICommand> registeredCommands = new HashMap<>();
 
     /**
      * Registered subcommands and the handler associated with it.
      */
-    private final Map<String, CommandHandler> registeredHandlers = new HashMap<String, CommandHandler>();
+    private final Map<String, CommandHandler> registeredHandlers = new HashMap<>();
 
     /**
      * Root plugin so that commands and handlers have access to the information.
@@ -199,7 +199,7 @@ public abstract class CommandHandler implements CommandExecutor
     {
         if (args.length == 0)
             return args;
-        final List<String> argList = new LinkedList<String>(Arrays.asList(args));
+        final List<String> argList = new LinkedList<>(Arrays.asList(args));
         argList.remove(0);
         return argList.toArray(new String[argList.size()]);
     }

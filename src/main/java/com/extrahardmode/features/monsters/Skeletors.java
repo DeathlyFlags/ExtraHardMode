@@ -258,19 +258,17 @@ public class Skeletors extends ListenerModule
         if (removeSilverfish && event.getEntity() instanceof Skeleton)
         {
             //Kill all silverfish, but do it slowly as if they are burning up
-            for (LivingEntity silverfish : event.getEntity().getWorld().getLivingEntities())
-                if (isMinion(silverfish))
-                {
-                    for (UUID id : getMinionsSpawnedBySkeli(event.getEntity(), plugin))
-                    {
-                        if (silverfish.getUniqueId() == id)
-                        {
-                            //silverfish.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 1));
-                            silverfish.setFireTicks(Integer.MAX_VALUE);
-                            //new SlowKillTask(silverfish, plugin);
-                        }
-                    }
-                }
+            //silverfish.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 1));
+//new SlowKillTask(silverfish, plugin);
+            event.getEntity().getWorld().getLivingEntities().stream().filter(Skeletors::isMinion).forEach(silverfish -> {
+                //silverfish.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 1));
+//new SlowKillTask(silverfish, plugin);
+                getMinionsSpawnedBySkeli(event.getEntity(), plugin).stream().filter(id -> silverfish.getUniqueId() == id).forEach(id -> {
+                    //silverfish.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 1));
+                    silverfish.setFireTicks(Integer.MAX_VALUE);
+                    //new SlowKillTask(silverfish, plugin);
+                });
+            });
         }
     }
 
@@ -289,11 +287,7 @@ public class Skeletors extends ListenerModule
                 UUID parent = getParentOfMinion(entity, plugin);
 
                 //Try to find the parent by id
-                for (LivingEntity worldEntity : entity.getWorld().getLivingEntities())
-                {
-                    if (worldEntity.getUniqueId() == parent)
-                        removeMinionFromSkeli(entity.getUniqueId(), worldEntity);
-                }
+                entity.getWorld().getLivingEntities().stream().filter(worldEntity -> worldEntity.getUniqueId() == parent).forEach(worldEntity -> removeMinionFromSkeli(entity.getUniqueId(), worldEntity));
             }
         }
     }
@@ -309,7 +303,7 @@ public class Skeletors extends ListenerModule
     @SuppressWarnings("unchecked")
     public static void addMinionToSkeli(LivingEntity summoner, LivingEntity minion, Plugin plugin)
     {
-        List<UUID> idList = new ArrayList<UUID>(1);
+        List<UUID> idList = new ArrayList<>(1);
         //Get minions already set and append the new Minion
         List<MetadataValue> meta = summoner.getMetadata(key_spawnedMinions);
         for (MetadataValue val : meta)
@@ -363,7 +357,7 @@ public class Skeletors extends ListenerModule
     public static List<UUID> getMinionsSpawnedBySkeli(LivingEntity entity, Plugin plugin)
     {
         List<MetadataValue> meta = entity.getMetadata(key_spawnedMinions);
-        List<UUID> ids = new ArrayList<UUID>(meta.size());
+        List<UUID> ids = new ArrayList<>(meta.size());
         for (MetadataValue val : meta)
             if (val.getOwningPlugin() == plugin)
                 if (val.value() instanceof List)

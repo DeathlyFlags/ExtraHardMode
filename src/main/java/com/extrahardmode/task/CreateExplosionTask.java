@@ -63,7 +63,7 @@ public class CreateExplosionTask implements Runnable
     /**
      * Instance of a the Entity which caused the Explosion
      */
-    private Entity explosionCause;
+    private final Entity explosionCause;
 
 
     /**

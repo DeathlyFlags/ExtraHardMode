@@ -69,9 +69,9 @@ public class CompatHandler extends EHMModule
     @Override
     public void starting()
     {
-        blockProtectionPls = new HashSet<IBlockProtection>();
-        monsterProtectionPls = new HashSet<IMonsterProtection>();
-        blockLoggerPls = new HashSet<IBlockLogger>();
+        blockProtectionPls = new HashSet<>();
+        monsterProtectionPls = new HashSet<>();
+        blockLoggerPls = new HashSet<>();
 
         //BlockLoggers//
         //LogBlock

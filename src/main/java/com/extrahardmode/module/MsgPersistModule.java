@@ -68,7 +68,7 @@ public class MsgPersistModule extends EHMModule
     public void starting()
     {
         messages = plugin.getModuleForClass(MessageConfig.class);
-        playerIdBuffer = new HashMap<String, Integer>();
+        playerIdBuffer = new HashMap<>();
         testJDBC();
         initializeTables();
     }

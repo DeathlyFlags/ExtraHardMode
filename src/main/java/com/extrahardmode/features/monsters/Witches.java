@@ -38,7 +38,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
-import org.bukkit.projectiles.ProjectileSource;
 
 /**
  * All the changes to Witches
@@ -167,13 +166,7 @@ public class Witches extends ListenerModule
             } else
             {
                 // otherwise poison potion (selective target)
-                for (LivingEntity target : event.getAffectedEntities())
-                {
-                    if (target.getType() != EntityType.PLAYER)
-                    {
-                        event.setIntensity(target, 0.0);
-                    }
-                }
+                event.getAffectedEntities().stream().filter(target -> target.getType() != EntityType.PLAYER).forEach(target -> event.setIntensity(target, 0.0));
             }
 
             // if explosive potion, direct damage to players in the area
@@ -182,13 +175,7 @@ public class Witches extends ListenerModule
                 // explosion just for show, no damage
                 new CreateExplosionTask(plugin, location, ExplosionType.EFFECT, null).run();
 
-                for (LivingEntity target : event.getAffectedEntities())
-                {
-                    if (target.getType() == EntityType.PLAYER)
-                    {
-                        target.damage(3);
-                    }
-                }
+                event.getAffectedEntities().stream().filter(target -> target.getType() == EntityType.PLAYER).forEach(target -> target.damage(3));
             }
         }
 

@@ -80,7 +80,7 @@ public class IoHelper
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = br.readLine()) != null)
-                sb.append(line + String.format("%n"));
+                sb.append(line).append(String.format("%n"));
             br.close();
 
             //Header -> original file
@@ -95,9 +95,6 @@ public class IoHelper
             headerStream.close();
             outFileStream.close();
 
-        } catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
         } catch (IOException e)
         {
             e.printStackTrace();

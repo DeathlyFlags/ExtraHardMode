@@ -59,7 +59,7 @@ public abstract class ModularConfig extends EHMModule
     /**
      * Cache of options for the config.
      */
-    protected final Map<ConfigNode, Object> OPTIONS = new ConcurrentHashMap<ConfigNode, Object>();
+    protected final Map<ConfigNode, Object> OPTIONS = new ConcurrentHashMap<>();
 
 
     /**
@@ -228,7 +228,7 @@ public abstract class ModularConfig extends EHMModule
     @SuppressWarnings("unchecked")
     public List<String> getStringList(final ConfigNode node)
     {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         switch (node.getVarType())
         {
             case LIST:

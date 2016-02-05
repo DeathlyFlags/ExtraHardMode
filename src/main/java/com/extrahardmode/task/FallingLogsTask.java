@@ -82,8 +82,8 @@ public class FallingLogsTask implements Runnable
             {
                 //Clear the area below of leaves
                 Block below = block;
-                List<Block> looseLogs = new ArrayList<Block>();
-                List<Block> tempBlocks = new ArrayList<Block>();
+                List<Block> looseLogs = new ArrayList<>();
+                List<Block> tempBlocks = new ArrayList<>();
                 looseLogs.add(block);
                 checkBelow:
                 for (int i = 0; below.getY() > 0; i++)
@@ -133,14 +133,7 @@ public class FallingLogsTask implements Runnable
                 for (int i = 0; i < looseLogs.size(); i++)
                 {
                     final Block looseLog = looseLogs.get(i);
-                    plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            blockModule.applyPhysics(looseLog, true);
-                        }
-                    }, i /*delay to prevent FallingBlock collision*/);
+                    plugin.getServer().getScheduler().runTaskLater(plugin, () -> blockModule.applyPhysics(looseLog, true), i /*delay to prevent FallingBlock collision*/);
 
                 }
             }

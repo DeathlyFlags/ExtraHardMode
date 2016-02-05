@@ -55,7 +55,7 @@ public class StringUtil
         if (suffix == null)
             suffix = "";
 
-        List<MsgLineHolder> lines = new ArrayList<MsgLineHolder>();
+        List<MsgLineHolder> lines = new ArrayList<>();
 
         String[] words;
         if (message.contains(" "))

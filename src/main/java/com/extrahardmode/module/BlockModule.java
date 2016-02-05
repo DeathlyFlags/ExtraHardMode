@@ -297,7 +297,7 @@ public class BlockModule extends EHMModule
      */
     public Block[] getBlocksInArea(Location loc, int height, int radius, Material type)
     {
-        List<Block> blocks = new ArrayList<Block>();
+        List<Block> blocks = new ArrayList<>();
         //Height
         for (int y = 0; y < height; y++)
         {

@@ -50,7 +50,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
 import java.util.List;
@@ -152,7 +151,6 @@ public class Glydia extends ListenerModule
             placeEvent.setCancelled(true);
             //TODO EhmLimitedBuildingEvent End
             messenger.send(player, MessageNode.LIMITED_END_BUILDING);
-            return;
         }
     }
 
@@ -199,14 +197,10 @@ public class Glydia extends ListenerModule
 
             if (glydiaDropsEggs)
             {
-                for (String player : data.getPlayers())
-                {
-                    if (plugin.getServer().getPlayer(player) != null)
-                    {
-                        Player player1 = plugin.getServer().getPlayer(player);
-                        messenger.send(player1, MessageNode.DRAGON_FOUNTAIN_TIP);
-                    }
-                }
+                data.getPlayers().stream().filter(player -> plugin.getServer().getPlayer(player) != null).forEach(player -> {
+                    Player player1 = plugin.getServer().getPlayer(player);
+                    messenger.send(player1, MessageNode.DRAGON_FOUNTAIN_TIP);
+                });
             }
 
             data.getPlayers().clear();

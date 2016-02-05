@@ -175,7 +175,7 @@ public class HardenedStone extends ListenerModule
 
         if (hardstoneEnabled && blockOrePlacement && !playerBypasses && oreBlocks.contains(block))
         {
-            ArrayList<Block> adjacentBlocks = new ArrayList<Block>();
+            ArrayList<Block> adjacentBlocks = new ArrayList<>();
             for (BlockFace face : blockModule.getTouchingFaces())
                 adjacentBlocks.add(block.getRelative(face));
 
@@ -248,7 +248,6 @@ public class HardenedStone extends ListenerModule
             if (stoneBlocks.contains(block) || oreBlocks.contains(block))
             {
                 event.setCancelled(true);
-                return;
             }
         }
     }
