@@ -25,6 +25,7 @@ package com.extrahardmode;
 
 import com.extrahardmode.command.Commander;
 import com.extrahardmode.compatibility.CompatHandler;
+import com.extrahardmode.config.EHMConfig;
 import com.extrahardmode.config.RootConfig;
 import com.extrahardmode.config.RootNode;
 import com.extrahardmode.config.messages.MessageConfig;
@@ -38,6 +39,7 @@ import com.extrahardmode.service.OurRandom;
 import com.extrahardmode.task.ArmorWeightTask;
 import com.extrahardmode.task.MoreMonstersTask;
 import com.extrahardmode.task.WeightCheckTask;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -163,6 +165,8 @@ public class ExtraHardMode extends JavaPlugin
 
         //Metrics Plotter, this gets included by maven
         new ConfigPlotter(this, getModuleForClass(RootConfig.class));
+
+        Bukkit.getLogger().info("Loaded worlds: " + RootConfig.mainEhmConfig.getWorlds().toString());
     }
 
 

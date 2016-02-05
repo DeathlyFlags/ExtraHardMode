@@ -41,6 +41,8 @@ import java.util.Map;
  */
 public class RootConfig extends MultiWorldConfig
 {
+    public static EHMConfig mainEhmConfig = null;
+
     /**
      * Constructor
      */
@@ -78,7 +80,6 @@ public class RootConfig extends MultiWorldConfig
             ehmConfigs[i].load();
         }
         //what is the main config.yml file?
-        EHMConfig mainEhmConfig = null;
         for (EHMConfig ehmConfig : ehmConfigs)
         {
             if (ehmConfig.isMainConfig())
@@ -108,8 +109,7 @@ public class RootConfig extends MultiWorldConfig
             mainEhmConfig.load();
         }
         //Load config.yml
-        if (mainEhmConfig.isEnabledForAll())
-            enabledForAll = true;
+        enabledForAll = mainEhmConfig.isEnabledForAll();
         for (Map.Entry<ConfigNode, Object> node : mainEhmConfig.getLoadedNodes().entrySet())
         {
             for (String world : mainEhmConfig.getWorlds())

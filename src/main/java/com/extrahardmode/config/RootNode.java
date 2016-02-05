@@ -361,6 +361,7 @@ public enum RootNode implements ConfigNode
     ARMOR_SLOWDOWN_PERCENT("Player.Armor Changes.Slowdown Percentage", VarType.INTEGER, SubType.PERCENTAGE, 40,
             "How much percent players wearing a full diamond armor will be slowed down.",
             "This is the maximum slow down, the amount of armor points determines how much a player will be slowed down."),
+
 //    /**
 //     * Maximum percentage
 //     */
@@ -1020,7 +1021,7 @@ public enum RootNode implements ConfigNode
     /**
      * Damage the world below border
      */
-    EXPLOSIONS_GHAST_ABOVE_WORLD_GRIEF("Explosions.Ghasts.Above Border.World Damage", VarType.BOOLEAN, true),;
+    EXPLOSIONS_GHAST_ABOVE_WORLD_GRIEF("Explosions.Ghasts.Above Border.World Damage", VarType.BOOLEAN, true);
 
     /**
      * Path.

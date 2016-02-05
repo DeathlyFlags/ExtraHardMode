@@ -413,9 +413,8 @@ public class EHMConfig
         mWorlds.addAll(mConfig.getStringList(mWorldsNode.getPath()));
 
         //Check for all worlds placeholder = Enables plugin for all worlds
-        for (String world : mWorlds)
-            if (world.equals(MultiWorldConfig.ALL_WORLDS))
-                mEnabledForAll = true;
+        if (mWorlds.contains(MultiWorldConfig.ALL_WORLDS))
+            mEnabledForAll = true;
     }
 
 

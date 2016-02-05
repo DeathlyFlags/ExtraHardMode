@@ -27,6 +27,7 @@ import com.extrahardmode.config.RootConfig;
 import com.extrahardmode.config.RootNode;
 import com.extrahardmode.events.EhmPlayerExtinguishFireEvent;
 import com.extrahardmode.events.EhmPlayerInventoryLossEvent;
+import com.extrahardmode.module.BlockModule;
 import com.extrahardmode.module.DataStoreModule;
 import com.extrahardmode.module.PlayerData;
 import com.extrahardmode.module.PlayerModule;
@@ -36,9 +37,11 @@ import com.extrahardmode.service.config.customtypes.BlockType;
 import com.extrahardmode.service.config.customtypes.BlockTypeList;
 import com.extrahardmode.service.config.customtypes.PotionEffectHolder;
 import com.extrahardmode.task.SetPlayerHealthAndFoodTask;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.LivingEntity;
@@ -49,12 +52,13 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -305,45 +309,43 @@ public class Players extends ListenerModule
     }
 
 
-//    //Prevent sprint jumping as a workaround for slower armor
-//    @EventHandler(priority = EventPriority.LOWEST)
-//    void onPlayerMove(PlayerMoveEvent event)
-//    {
-//        Player player = event.getPlayer();
-//        if (!CFG.getBoolean(RootNode.ARMOR_SLOWDOWN_ENABLE, player.getWorld().getName()))
-//            return;
-//        final int slowdownPercent = CFG.getInt(RootNode.ARMOR_JUMP_SLOWDOWN_PERCENT, player.getWorld().getName());
-//        final float armorPoints = PlayerModule.getArmorPoints(player);
-//        if (player.getGameMode() != GameMode.CREATIVE && event.getTo().getY() > event.getFrom().getY())
-//        {
-//            Block block, control;
-//            Vector dir = player.getVelocity();
-//            float armorPointsNorm = armorPoints / 0.8F;
-//            float factor = (1 - armorPointsNorm * (slowdownPercent / 100F)) / 5; //for every jump 5 move events are called
-//            dir.multiply(new Vector(factor, 1, factor));
-//            block = player.getLocation().getBlock();
-//            control = player.getLocation().getBlock().getRelative(BlockFace.UP, 2);
-//            if (block.getType() == Material.AIR && control.getType() == Material.AIR)// && !mapGet(player.getUniqueId(), false))
-//            {
-////                mJumpingPl.put(player.getUniqueId(), true);
-//                event.getPlayer().setVelocity(dir);
-//                player.sendMessage("=");
-//            }
-//        }
-////        if (event.getTo().getY() < event.getFrom().getY())
-////           mJumpingPl.put(player.getUniqueId(), false);
-//    }
-//
-//
-//    Map<UUID, Boolean> mJumpingPl = new HashMap<UUID, Boolean>();
-//
-//
-//    private boolean mapGet(UUID key, boolean defaultVal)
-//    {
-//        Boolean ret = mJumpingPl.get(key);
-//        return ret != null ? ret : defaultVal;
-//    }
-//
+    //Prevent sprint jumping as a workaround for slower armor
+    /*Set<Player> mJumpingPl = new HashSet<>();
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    void onPlayerMove(PlayerMoveEvent event)
+    {
+        Player player = event.getPlayer();
+        if (!CFG.getBoolean(RootNode.ARMOR_SLOWDOWN_ENABLE, player.getWorld().getName()))
+            return;
+        if (player.getGameMode() == GameMode.CREATIVE || event.getTo().getY() <= event.getFrom().getY()) {
+            mJumpingPl.remove(player);
+            return;
+        }
+
+        final int slowdownPercent = CFG.getInt(RootNode.ARMOR_JUMP_SLOWDOWN_PERCENT, player.getWorld().getName());
+        final float armorPoints = PlayerModule.getArmorPoints(player);
+        if (armorPoints == 0) return;
+
+        Block block, control;
+        Vector dir = player.getVelocity();
+        float armorPointsNorm = armorPoints / 0.8F;
+        float factor = (1 - armorPointsNorm * (slowdownPercent / 100F)) / 9; //for every jump 9 move events are called
+        dir.multiply(new Vector(factor, factor, factor));
+        block = player.getLocation().getBlock();
+        control = player.getLocation().getBlock().getRelative(BlockFace.UP, 2);
+
+        if (!BlockModule.isOneOf(block, Material.WATER, Material.STATIONARY_WATER, Material.LAVA, Material.STATIONARY_LAVA) && control.getType() == Material.AIR && !mJumpingPl.contains(player))
+        {
+            if (player.isFlying()) return;
+            mJumpingPl.add(player);
+            event.getPlayer().setVelocity(dir);
+            player.sendMessage("=" + armorPoints);
+        }
+
+    }*/
+
+
 
 
     @EventHandler

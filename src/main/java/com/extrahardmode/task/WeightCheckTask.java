@@ -59,8 +59,8 @@ public class WeightCheckTask implements Runnable
                         final float weight = PlayerModule.inventoryWeight(player, (float) armorPoints, (float) invPoints, (float) toolPoints);
 
                         List<String> weightMessage = new ArrayList<String>(2);
-                        weightMessage.add(String.format("Weight %.1f/%.1f", weight, maxPoints));
-                        weightMessage.add(weight > maxPoints ? ChatColor.RED + "U will drown" : ChatColor.GREEN + "U won't drown");
+                        weightMessage.add(String.format("Peso: %.1f/%.1f", weight, maxPoints));
+                        weightMessage.add(weight > maxPoints ? ChatColor.RED + "Demasiado Peso" : ChatColor.GREEN + "Sin Problemas");
                         mMessenger.sendPopup(player, MsgCategory.WEIGHT_MSG, weightMessage, false);
                     }
                 }

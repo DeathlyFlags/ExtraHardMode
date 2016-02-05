@@ -6,6 +6,7 @@ import com.extrahardmode.config.RootConfig;
 import com.extrahardmode.config.RootNode;
 import com.extrahardmode.module.MsgModule;
 import com.extrahardmode.module.PlayerModule;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -20,7 +21,7 @@ public class ArmorWeightTask implements Runnable
     private final ExtraHardMode mPlugin;
     private final RootConfig CFG;
     private final MsgModule mMessenger;
-    private static Set<UUID> mPlayerList = new HashSet<UUID>();
+    private static Set<UUID> mPlayerList = new HashSet<>();
 
 
     public ArmorWeightTask(ExtraHardMode plugin)
@@ -38,15 +39,15 @@ public class ArmorWeightTask implements Runnable
         {
             if (!CFG.getBoolean(RootNode.ARMOR_SLOWDOWN_ENABLE, player.getWorld().getName()))
                 continue;
-            final float basespeed = (float) CFG.getDouble(RootNode.ARMOR_SLOWDOWN_BASESPEED, player.getWorld().getName());
+            final float baseSpeed = (float) CFG.getDouble(RootNode.ARMOR_SLOWDOWN_BASESPEED, player.getWorld().getName());
             final int slowdownPercent = CFG.getInt(RootNode.ARMOR_SLOWDOWN_PERCENT, player.getWorld().getName());
             final float armorPoints = PlayerModule.getArmorPoints(player);
-            if (armorPoints != 0)
+            if (armorPoints != 0 && !player.isFlying() && player.getGameMode() != GameMode.CREATIVE)
             {
-                float value = basespeed * (1 - armorPoints / 0.8F * (slowdownPercent / 100F));
+                float value = baseSpeed * (1 - armorPoints / 0.8F * (slowdownPercent / 100F));
                 player.setWalkSpeed(value);
             } else
-                player.setWalkSpeed(basespeed);
+                player.setWalkSpeed(baseSpeed);
         }
     }
 }

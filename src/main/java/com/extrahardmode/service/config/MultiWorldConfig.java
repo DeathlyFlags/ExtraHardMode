@@ -50,7 +50,7 @@ public abstract class MultiWorldConfig extends EHMModule
     /**
      * For mods like MystCraft which allow Players to create their own dimensions, so the admin doesn't have to add worlds manually
      */
-    protected boolean enabledForAll = false;
+    protected boolean enabledForAll = true;
 
     /**
      * String that will enable the plugin in all worlds
@@ -217,13 +217,6 @@ public abstract class MultiWorldConfig extends EHMModule
     {
         return enabledForAll;
     }
-
-
-    public String getAllWorldString()
-    {
-        return ALL_WORLDS;
-    }
-
 
 //     ___     _   _
 //    / _ \___| |_| |_ ___ _ __ ___
