@@ -308,46 +308,6 @@ public class Players extends ListenerModule
         }
     }
 
-
-    //Prevent sprint jumping as a workaround for slower armor
-    /*Set<Player> mJumpingPl = new HashSet<>();
-
-    @EventHandler(priority = EventPriority.LOWEST)
-    void onPlayerMove(PlayerMoveEvent event)
-    {
-        Player player = event.getPlayer();
-        if (!CFG.getBoolean(RootNode.ARMOR_SLOWDOWN_ENABLE, player.getWorld().getName()))
-            return;
-        if (player.getGameMode() == GameMode.CREATIVE || event.getTo().getY() <= event.getFrom().getY()) {
-            mJumpingPl.remove(player);
-            return;
-        }
-
-        final int slowdownPercent = CFG.getInt(RootNode.ARMOR_JUMP_SLOWDOWN_PERCENT, player.getWorld().getName());
-        final float armorPoints = PlayerModule.getArmorPoints(player);
-        if (armorPoints == 0) return;
-
-        Block block, control;
-        Vector dir = player.getVelocity();
-        float armorPointsNorm = armorPoints / 0.8F;
-        float factor = (1 - armorPointsNorm * (slowdownPercent / 100F)) / 9; //for every jump 9 move events are called
-        dir.multiply(new Vector(factor, factor, factor));
-        block = player.getLocation().getBlock();
-        control = player.getLocation().getBlock().getRelative(BlockFace.UP, 2);
-
-        if (!BlockModule.isOneOf(block, Material.WATER, Material.STATIONARY_WATER, Material.LAVA, Material.STATIONARY_LAVA) && control.getType() == Material.AIR && !mJumpingPl.contains(player))
-        {
-            if (player.isFlying()) return;
-            mJumpingPl.add(player);
-            event.getPlayer().setVelocity(dir);
-            player.sendMessage("=" + armorPoints);
-        }
-
-    }*/
-
-
-
-
     @EventHandler
     public void onPlayerDisconnect(PlayerQuitEvent event)
     {
