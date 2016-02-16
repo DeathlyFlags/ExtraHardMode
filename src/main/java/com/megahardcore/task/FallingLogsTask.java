@@ -1,0 +1,142 @@
+/*
+ * This file is part of
+ * MegaHardCore Server Plugin for Minecraft
+ *
+ * Copyright (C) 2012 Ryan Hamshire
+ * Copyright (C) 2013 Diemex
+ *
+ * MegaHardCore is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * MegaHardCore is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero Public License
+ * along with MegaHardCore.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package com.megahardcore.task;
+
+
+import com.megahardcore.MegaHardCore;
+import com.megahardcore.module.BlockModule;
+import org.apache.commons.lang.Validate;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Gradually let's Logs which have been marked as loose fall down.
+ */
+public class FallingLogsTask implements Runnable
+{
+    /**
+     * Reference to the plugin using this class
+     */
+    private final MegaHardCore plugin;
+
+    /**
+     * BlockModule to spawn FallingBlocks
+     */
+    private final BlockModule blockModule;
+
+    /**
+     * Block to apply physics to
+     */
+    private final Block block;
+
+
+    /**
+     * Constructor
+     *
+     * @param plugin reference to the plugin
+     * @param block  to apply physics to
+     */
+
+    public FallingLogsTask (MegaHardCore plugin, Block block)
+    {
+        Validate.notNull(block, "Block can't be null");
+        Validate.notNull(plugin, "Plugin can't be null");
+
+        this.block = block;
+        this.plugin = plugin;
+        blockModule = plugin.getModuleForClass(BlockModule.class);
+    }
+
+
+    @Override
+    public void run()
+    {
+        if (block != null)
+        {
+            /* Prevent wooden structures near trees from being affected*/
+            if (blockModule.getBlocksInArea(block.getLocation(), 2, 1, Material.LEAVES).length > 3 ||
+                    blockModule.getBlocksInArea(block.getLocation(), 2, 1, Material.LEAVES_2).length > 3)
+            {
+                //Clear the area below of leaves
+                Block below = block;
+                List<Block> looseLogs = new ArrayList<>();
+                List<Block> tempBlocks = new ArrayList<>();
+                looseLogs.add(block);
+                checkBelow:
+                for (int i = 0; below.getY() > 0; i++)
+                {
+                    below = below.getRelative(BlockFace.DOWN);
+                    switch (below.getType())
+                    {
+                        case AIR:
+                        {
+                            //go one down
+                            //All blocks above this can fall now that there is an air block
+                            looseLogs.addAll(tempBlocks);
+                            tempBlocks.clear();
+                            break;
+                        }
+                        case LEAVES:
+                        case LEAVES_2:
+                        {
+                            below.breakNaturally();
+                            break;
+                        }
+                        case LOG:
+                        case LOG_2:
+                        {
+                            //Prevent Logs on adjacent sides (Jungle Tree) from turning to FallingBlocks and some of them turning into items
+                            switch (below.getRelative(BlockFace.DOWN).getType())
+                            {
+                                case AIR:
+                                case LEAVES:
+                                    tempBlocks.add(below);
+                            }
+                            break;
+                        }
+                        default: //we hit the block where the FallingBlock will land
+                        {
+                            if (blockModule.breaksFallingBlock(below.getType()))
+                            {
+                                below.breakNaturally();
+                            } else
+                            {
+                                break checkBelow;
+                            }
+                        }
+                    }
+                }
+
+                for (int i = 0; i < looseLogs.size(); i++)
+                {
+                    final Block looseLog = looseLogs.get(i);
+                    plugin.getServer().getScheduler().runTaskLater(plugin, () -> blockModule.applyPhysics(looseLog, true), i /*delay to prevent FallingBlock collision*/);
+
+                }
+            }
+        }
+    }
+}

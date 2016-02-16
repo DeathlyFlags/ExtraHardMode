@@ -1,22 +1,22 @@
 <!--
   ~ This file is part of
-  ~ ExtraHardMode Server Plugin for Minecraft
+  ~ MegaHardCore Server Plugin for Minecraft
   ~
   ~ Copyright (C) 2012 Ryan Hamshire
   ~ Copyright (C) 2013 Diemex
   ~
-  ~ ExtraHardMode is free software: you can redistribute it and/or modify
+  ~ MegaHardCore is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ ExtraHardMode is distributed in the hope that it will be useful,
+  ~ MegaHardCore is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU Affero Public License
-  ~ along with ExtraHardMode.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with MegaHardCore.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -24,17 +24,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Project properties. -->
-    <groupId>com.extrahardmode</groupId>
-    <artifactId>ExtraHardCore</artifactId>
+    <groupId>ETSHiip</groupId>
+    <artifactId>MegaHardCore</artifactId>
     <version>3.6.6</version>
-    <name>ExtraHardCore</name>
+    <name>MegaHardCore</name>
     <description>New game rules and mechanics for Minecraft.</description>
     <url>http://dev.bukkit.org/server-mods/fun-hard-mode</url>
 
     <!-- Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.mainclass>com.extrahardmode.ExtraHardMode</project.mainclass>
+        <project.mainclass>com.megahardcore.MegaHardCore</project.mainclass>
         <!--Use a profile to overwrite this-->
         <outputdir>${project.build.outputDirectory}</outputdir>
         <mc-version>1.8.8</mc-version>
@@ -84,7 +84,7 @@
                     <relocations>
                         <relocation>
                             <pattern>org.mcstats</pattern>
-                            <shadedPattern>com.extrahardmode.metrics</shadedPattern>
+                            <shadedPattern>com.megahardcore.metrics</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
