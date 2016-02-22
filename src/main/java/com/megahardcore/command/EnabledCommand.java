@@ -11,7 +11,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /** @author Diemex */
 public class EnabledCommand implements ICommand
@@ -37,6 +40,14 @@ public class EnabledCommand implements ICommand
                     boolean enabled = Arrays.asList(CFG.getEnabledWorlds()).contains(world.getName());
                     sender.sendMessage(
                             String.format("%s MegaHardCore is %s in world %s", enabled ? ChatColor.GREEN : ChatColor.RED, enabled ? "enabled" : "disabled", world.getName()));
+
+                    if (CFG.getEnabledWorlds().length > 0) sender.sendMessage(String.format("%sEHM enabled for: %s", ChatColor.GREEN, Arrays.toString(CFG.getEnabledWorlds())));
+                    List<String> enabledWorlds  = Arrays.asList(CFG.getEnabledWorlds());
+                    List<String> disabledWorlds = plugin.getServer().getWorlds().stream().map(World::getName).collect(Collectors.toList());
+                    disabledWorlds.removeAll(enabledWorlds);
+                    if (disabledWorlds.size() > 0) sender.sendMessage(String.format("%sEHM disabled for: %s", ChatColor.RED, disabledWorlds));
+                    sender.sendMessage(String.format("%sCurrent world: %s %s", enabled ? ChatColor.GREEN : ChatColor.RED, world.getName(), enabled ? "enabled" : "disabled"));
+
                 }
             }
         } else

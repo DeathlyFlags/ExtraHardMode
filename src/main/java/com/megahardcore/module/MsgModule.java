@@ -308,7 +308,7 @@ public class MsgModule extends MHCModule
      */
     public void hidePopup(Player player, String identifier)
     {
-        if (manager != null)
+        if (manager != null && player != null)
             manager.removePopup(player.getName(), identifier);
     }
 
